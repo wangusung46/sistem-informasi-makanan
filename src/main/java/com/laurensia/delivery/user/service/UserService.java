@@ -21,5 +21,7 @@ public interface UserService {
     public BaseResponse<UserDetailResponse> deleteUser(UserIdRequest request);
 
     public BaseResponse<UserDetailResponse> getUser(Long request);
+    
+    public String getName(String email);
 
 }

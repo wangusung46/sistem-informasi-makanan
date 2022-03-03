@@ -1,5 +1,6 @@
 package com.laurensia.delivery.configuration;
 
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -27,12 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
         super.configure(auth);
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
 
         customAuthenticationFilter.setFilterProcessesUrl("/login");
+        http.cors();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers(
@@ -52,9 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/v3/api-docs/**",
                 "/swagger-ui/**")
                 .permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/users/**", "/items/**", "/transactions/**", "/ratings/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/users/**", "/items/**", "/transactions/**", "/ratings/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_CUSTOMER");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/users/**", "/items/**").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/users/**", "/items/**", "/transactions/**", "/ratings/**").hasAnyAuthority("ROLE_CUSTOMER");
+//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/users/**", "/items/**", "/transactions/**", "/ratings/**").hasAnyAuthority("ROLE_CUSTOMER");
         http.authorizeRequests().anyRequest().authenticated();
 
         http.addFilter(customAuthenticationFilter);
@@ -66,6 +71,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 }

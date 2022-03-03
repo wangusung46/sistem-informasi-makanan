@@ -89,6 +89,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setName(request.getName());
         user.setPassword(request.getPassword());
         user.setPhone(request.getPhone());
+        user.setRoles(request.getRole());
+        userRepository.save(user);
 
         detailResponse.setActive(Boolean.TRUE);
         detailResponse.setAddress(request.getAddress());
@@ -97,7 +99,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         detailResponse.setIc(request.getIc());
         detailResponse.setName(request.getName());
         detailResponse.setPhone(request.getPhone());
-        userRepository.save(user);
+        
         response.setStatus(true);
         response.setPayload(detailResponse);
         return response;
@@ -164,6 +166,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             response.setStatus(false);
         }
         return response;
+    }
+
+    @Override
+    public String getName(String email) {
+        User user = new User();
+        user = userRepository.findByEmail(email);
+        return user.getName();
     }
 
 }
