@@ -9,6 +9,9 @@ import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
 import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,7 +44,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(Long request) {
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(String request) {
         BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
         List<TransactionDetailResponse> detailResponses = transactionRepository.findByUserAndStatus(request);
         if (detailResponses != null) {

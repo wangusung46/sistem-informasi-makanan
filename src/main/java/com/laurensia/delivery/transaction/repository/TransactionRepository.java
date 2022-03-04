@@ -19,9 +19,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "LEFT JOIN User u ON t.idUser = u.id "
             + "LEFT JOIN Item i ON t.idItem = i.id "
             + "LEFT JOIN Rating r ON t.id = r.idTransaction "
-            + "WHERE t.status = 'Complete' AND u.id = (:userId) "
+            + "WHERE t.status = 'Complete' AND u.email = (:email) "
             + "ORDER BY t.id DESC")
-    public List<TransactionDetailResponse> findByUserAndStatus(@Param("userId") Long userId);
+    public List<TransactionDetailResponse> findByUserAndStatus(@Param("email") String email);
 
     @Query(value = "SELECT t.id AS id, u.name AS nameUser, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "

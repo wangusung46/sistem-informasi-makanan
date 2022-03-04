@@ -14,7 +14,7 @@ public interface TransactionService {
 
     public BaseResponse<TransactionSaveResponse> saveTransaction(TransactionSaveRequest request);
 
-    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(Long request);
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(String request);
 
     public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser();
 

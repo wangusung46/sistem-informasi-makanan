@@ -7,14 +7,18 @@ import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
 import com.laurensia.delivery.transaction.service.TransactionService;
+import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -31,15 +35,16 @@ public class TransactionController {
         return ResponseEntity.ok(response);
     }
     
-    @PostMapping(value = "/transactions/user", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse<?>> doGetTransactionCustomer(@RequestBody TransactionIdRequest request) throws JsonProcessingException {
+    @GetMapping(value = "/transactions/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doGetTransactionCustomer(Authentication authentication, Principal principal) throws JsonProcessingException {
         BaseResponse<List<TransactionDetailResponse>> responses = new BaseResponse<>();
-        responses = transactionService.getTransactionByUserAndStatus(request.getId());
+        System.out.println(authentication.getName());
+        responses = transactionService.getTransactionByUserAndStatus(authentication.getName());
         return ResponseEntity.ok(responses);
     }
     
     @GetMapping(value = "/transactions/admin", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse<?>> doGetTransactionCustomer() throws JsonProcessingException {
+    public ResponseEntity<BaseResponse<?>> doGetTransactionAdmin() throws JsonProcessingException {
         BaseResponse<List<TransactionDetailResponse>> responses = new BaseResponse<>();
         responses = transactionService.getTransactionByUser();
         return ResponseEntity.ok(responses);
