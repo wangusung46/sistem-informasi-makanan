@@ -5,13 +5,11 @@ import com.laurensia.delivery.transaction.model.Transaction;
 import com.laurensia.delivery.transaction.repository.TransactionRepository;
 import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
+import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
 import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -60,6 +58,19 @@ public class TransactionServiceImpl implements TransactionService {
     public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser() {
         BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
         List<TransactionDetailResponse> detailResponses = transactionRepository.findByUser();
+        if (detailResponses != null) {
+            response.setStatus(true);
+            response.setPayload(detailResponses);
+        } else {
+            response.setStatus(false);
+        }
+        return response;
+    }
+
+    @Override
+    public BaseResponse<List<TransactionDetailTotalResponse>> getTransactionByUserTotalRating() {
+        BaseResponse<List<TransactionDetailTotalResponse>> response = new BaseResponse<>();
+        List<TransactionDetailTotalResponse> detailResponses = transactionRepository.findByUserTotalRating();
         if (detailResponses != null) {
             response.setStatus(true);
             response.setPayload(detailResponses);

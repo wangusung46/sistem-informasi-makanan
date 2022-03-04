@@ -2,6 +2,7 @@ package com.laurensia.delivery.transaction.repository;
 
 import com.laurensia.delivery.transaction.model.Transaction;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
+import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -34,4 +35,18 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "WHERE t.status = 'Complete' "
             + "ORDER BY t.id DESC")
     public List<TransactionDetailResponse> findByUser();
+
+    @Query(value = "SELECT t.id AS id, "
+            + "i.name AS nameItem, "
+            + "SUM(t.countItem) AS countItem, "
+            + "t.status AS status, "
+            + "SUM(t.countItem * i.price) AS total, "
+            + "((SUM(COALESCE(r.rate, 0))) / (COUNT(r.rate) * 5)) * 5 AS rate "
+            + "FROM Transaction t "
+            + "LEFT JOIN Item i ON t.idItem = i.id "
+            + "LEFT JOIN Rating r ON t.id = r.idTransaction "
+            + "WHERE t.status = 'Complete' "
+            + "GROUP BY i.id "
+            + "ORDER BY r.id DESC")
+    public List<TransactionDetailTotalResponse> findByUserTotalRating();
 }
