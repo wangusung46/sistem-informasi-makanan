@@ -8,6 +8,7 @@ import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
 import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,9 +43,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(String request) {
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser(String request) {
         BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
-        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUserAndStatus(request);
+        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUserTransaction(request);
         if (detailResponses != null) {
             response.setStatus(true);
             response.setPayload(detailResponses);
@@ -54,19 +55,30 @@ public class TransactionServiceImpl implements TransactionService {
         return response;
     }
 
-    @Override
-    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser() {
-        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
-        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUser();
-        if (detailResponses != null) {
-            response.setStatus(true);
-            response.setPayload(detailResponses);
-        } else {
-            response.setStatus(false);
-        }
-        return response;
-    }
-
+//    @Override
+//    public BaseResponse<List<TransactionDetailResponse>> getTransaction() {
+//        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
+//        List<TransactionDetailResponse> detailResponses = transactionRepository.findByAdminTransaction();
+//        if (detailResponses != null) {
+//            response.setStatus(true);
+//            response.setPayload(detailResponses);
+//        } else {
+//            response.setStatus(false);
+//        }
+//        return response;
+//    }
+//    @Override
+//    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser() {
+//        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
+//        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUser();
+//        if (detailResponses != null) {
+//            response.setStatus(true);
+//            response.setPayload(detailResponses);
+//        } else {
+//            response.setStatus(false);
+//        }
+//        return response;
+//    }
     @Override
     public BaseResponse<List<TransactionDetailTotalResponse>> getTransactionByUserTotalRating() {
         BaseResponse<List<TransactionDetailTotalResponse>> response = new BaseResponse<>();
@@ -77,6 +89,48 @@ public class TransactionServiceImpl implements TransactionService {
         } else {
             response.setStatus(false);
         }
+        return response;
+    }
+
+    @Override
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByStaff(String request) {
+        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
+        List<TransactionDetailResponse> detailResponses = transactionRepository.findByStaffTransaction(request);
+        if (detailResponses != null) {
+            response.setStatus(true);
+            response.setPayload(detailResponses);
+        } else {
+            response.setStatus(false);
+        }
+        return response;
+    }
+
+    @Override
+    public BaseResponse<TransactionSaveResponse> updateTransactionByStaff(Long request) {
+        BaseResponse<TransactionSaveResponse> response = new BaseResponse<>();
+        TransactionSaveResponse detailResponse = new TransactionSaveResponse();
+//        Transaction transaction = new Transaction();
+        Optional<Transaction> optional = transactionRepository.findById(request);
+        if (optional.isPresent()) {
+            if(optional.get().getStatus().equals("ORDER")){
+                optional.get().setStatus("DELIVERY");
+            } else if(optional.get().getStatus().equals("DELIVERY")){
+                optional.get().setStatus("COMPLETE");
+            }
+            optional.get().setId(request);
+            transactionRepository.save(optional.get());
+
+            detailResponse.setCountItem(optional.get().getCountItem());
+            detailResponse.setIdItem(optional.get().getIdItem());
+            detailResponse.setIdUser(optional.get().getIdUser());
+            detailResponse.setStatus(optional.get().getStatus());
+
+            response.setStatus(true);
+            response.setPayload(detailResponse);
+        } else {
+            response.setStatus(false);
+        }
+
         return response;
     }
 

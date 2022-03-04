@@ -2,18 +2,16 @@ package com.laurensia.delivery.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.laurensia.delivery.baseresponse.BaseResponse;
+import com.laurensia.delivery.transaction.request.TransactionIdRequest;
 import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
 import com.laurensia.delivery.transaction.service.TransactionService;
-import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,32 +24,46 @@ public class TransactionController {
     
     private final TransactionService transactionService;
 
-    @PostMapping(value = "/transactions/user/save", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/customer/transactions/save", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse<?>> doSaveTransaction(@RequestBody TransactionSaveRequest request) throws JsonProcessingException {
         BaseResponse<TransactionSaveResponse> response = new BaseResponse<>();
         response = transactionService.saveTransaction(request);
         return ResponseEntity.ok(response);
     }
     
-    @GetMapping(value = "/transactions/user", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse<?>> doGetTransactionCustomer() throws JsonProcessingException {
+    @GetMapping(value = "/customer/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doCustomerGetTransactionCustomer() throws JsonProcessingException {
         BaseResponse<List<TransactionDetailResponse>> responses = new BaseResponse<>();
-        responses = transactionService.getTransactionByUserAndStatus(SecurityContextHolder.getContext().getAuthentication().getName());
+        responses = transactionService.getTransactionByUser(SecurityContextHolder.getContext().getAuthentication().getName());
         return ResponseEntity.ok(responses);
     }
     
-    @GetMapping(value = "/transactions/admin", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse<?>> doGetTransactionAdmin() throws JsonProcessingException {
-        BaseResponse<List<TransactionDetailResponse>> responses = new BaseResponse<>();
-        responses = transactionService.getTransactionByUser();
-        return ResponseEntity.ok(responses);
-    }
+//    @GetMapping(value = "/admin/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<BaseResponse<?>> doAdminGetTransaction() throws JsonProcessingException {
+//        BaseResponse<List<TransactionDetailResponse>> responses = new BaseResponse<>();
+//        responses = transactionService.getTransactionByUser();
+//        return ResponseEntity.ok(responses);
+//    }
     
-    @GetMapping(value = "/transactions/admin/total-rating", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse<?>> doGetTransactionAdminTotalRating() throws JsonProcessingException {
+    @GetMapping(value = "/admin/transactions/total-rating", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doAdminGetTransactionTotalRating() throws JsonProcessingException {
         BaseResponse<List<TransactionDetailTotalResponse>> responses = new BaseResponse<>();
         responses = transactionService.getTransactionByUserTotalRating();
         return ResponseEntity.ok(responses);
+    }
+    
+    @GetMapping(value = "/staff/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doStaffGetTransaction() throws JsonProcessingException {
+        BaseResponse<List<TransactionDetailResponse>> responses = new BaseResponse<>();
+        responses = transactionService.getTransactionByStaff(SecurityContextHolder.getContext().getAuthentication().getName());
+        return ResponseEntity.ok(responses);
+    }
+    
+    @PostMapping(value = "/staff/transactions/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doStaffUpdateTransaction(@RequestBody TransactionIdRequest request) throws JsonProcessingException {
+        BaseResponse<TransactionSaveResponse> response = new BaseResponse<>();
+        response = transactionService.updateTransactionByStaff(request.getId());
+        return ResponseEntity.ok(response);
     }
     
 }

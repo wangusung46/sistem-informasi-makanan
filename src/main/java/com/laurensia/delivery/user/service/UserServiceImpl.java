@@ -15,6 +15,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -143,21 +144,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public BaseResponse<UserDetailResponse> getUser(Long request) {
+    public BaseResponse<UserDetailResponse> getUser() {
         BaseResponse<UserDetailResponse> response = new BaseResponse<>();
         UserDetailResponse detailResponse = new UserDetailResponse();
-        Optional<User> optional = userRepository.findById(request);
+        User optional = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if (optional != null) {
-            if (optional.get().getActive()) {
+            if (optional.getActive()) {
                 
-                detailResponse.setActive(optional.get().getActive());
-                detailResponse.setAddress(optional.get().getAddress());
-                detailResponse.setEmail(optional.get().getEmail());
-                detailResponse.setGender(optional.get().getGender());
-                detailResponse.setIc(optional.get().getIc());
-                detailResponse.setId(optional.get().getId());
-                detailResponse.setName(optional.get().getName());
-                detailResponse.setPhone(optional.get().getPhone());
+                detailResponse.setActive(optional.getActive());
+                detailResponse.setAddress(optional.getAddress());
+                detailResponse.setEmail(optional.getEmail());
+                detailResponse.setGender(optional.getGender());
+                detailResponse.setIc(optional.getIc());
+                detailResponse.setId(optional.getId());
+                detailResponse.setName(optional.getName());
+                detailResponse.setPhone(optional.getPhone());
 
             }
             response.setStatus(true);

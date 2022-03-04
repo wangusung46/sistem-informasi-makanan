@@ -15,10 +15,14 @@ public interface TransactionService {
 
     public BaseResponse<TransactionSaveResponse> saveTransaction(TransactionSaveRequest request);
 
-    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(String request);
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser(String request);
 
-    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser();
+//    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(String request);
 
     public BaseResponse<List<TransactionDetailTotalResponse>> getTransactionByUserTotalRating();
+    
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByStaff(String request);
+
+    public BaseResponse<TransactionSaveResponse> updateTransactionByStaff(Long request);
 
 }

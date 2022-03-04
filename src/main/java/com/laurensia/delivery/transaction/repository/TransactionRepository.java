@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    @Query(value = "SELECT t.id AS id, u.name AS nameUser, i.name AS nameItem, "
+    @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
             + "COALESCE(r.rate, '0') AS rate, "
             + "COALESCE(r.review, 'Not Review') AS review "
@@ -20,11 +20,22 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "LEFT JOIN User u ON t.idUser = u.id "
             + "LEFT JOIN Item i ON t.idItem = i.id "
             + "LEFT JOIN Rating r ON t.id = r.idTransaction "
-            + "WHERE t.status = 'Complete' AND u.email = (:email) "
+            + "WHERE u.email = (:email) "
             + "ORDER BY t.id DESC")
-    public List<TransactionDetailResponse> findByUserAndStatus(@Param("email") String email);
+    public List<TransactionDetailResponse> findByUserTransaction(@Param("email") String email);
 
-    @Query(value = "SELECT t.id AS id, u.name AS nameUser, i.name AS nameItem, "
+    @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, i.name AS nameItem, "
+            + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
+            + "COALESCE(r.rate, '0') AS rate, "
+            + "COALESCE(r.review, 'Not Review') AS review "
+            + "FROM Transaction t "
+            + "LEFT JOIN User u ON t.idUser = u.id "
+            + "LEFT JOIN Item i ON t.idItem = i.id "
+            + "LEFT JOIN Rating r ON t.id = r.idTransaction "
+            + "ORDER BY t.id DESC")
+    public List<TransactionDetailResponse> findByAdminTransaction();
+
+    @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
             + "COALESCE(r.rate, '0') AS rate, "
             + "COALESCE(r.review, 'Not Review') AS review "
@@ -49,4 +60,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "GROUP BY i.id "
             + "ORDER BY r.id DESC")
     public List<TransactionDetailTotalResponse> findByUserTotalRating();
+
+    @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, i.name AS nameItem, "
+            + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
+            + "COALESCE(r.rate, '0') AS rate, "
+            + "COALESCE(r.review, 'Not Review') AS review "
+            + "FROM Transaction t "
+            + "LEFT JOIN User u ON t.idUser = u.id "
+            + "LEFT JOIN Item i ON t.idItem = i.id "
+            + "LEFT JOIN Rating r ON t.id = r.idTransaction "
+            + "ORDER BY t.id DESC")
+    public List<TransactionDetailResponse> findByStaffTransaction(@Param("email") String email);
 }

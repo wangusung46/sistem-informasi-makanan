@@ -1,6 +1,6 @@
 package com.laurensia.delivery.transaction.response;
 
-public interface TransactionDetailResponse {
+public interface TransactionUpdateResponse {
 
     Long getId();
     
