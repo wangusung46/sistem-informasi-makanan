@@ -4,7 +4,9 @@ import com.laurensia.delivery.baseresponse.BaseResponse;
 import com.laurensia.delivery.transaction.model.Transaction;
 import com.laurensia.delivery.transaction.repository.TransactionRepository;
 import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
+import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
+import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,10 +34,36 @@ public class TransactionServiceImpl implements TransactionService {
         detailResponse.setIdItem(request.getIdItem());
         detailResponse.setIdUser(request.getIdUser());
         detailResponse.setStatus(request.getStatus());
-        
+
         response.setStatus(true);
         response.setPayload(detailResponse);
         return response;
     }
-    
+
+    @Override
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUserAndStatus(Long request) {
+        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
+        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUserAndStatus(request);
+        if (detailResponses != null) {
+            response.setStatus(true);
+            response.setPayload(detailResponses);
+        } else {
+            response.setStatus(false);
+        }
+        return response;
+    }
+
+    @Override
+    public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser() {
+        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
+        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUser();
+        if (detailResponses != null) {
+            response.setStatus(true);
+            response.setPayload(detailResponses);
+        } else {
+            response.setStatus(false);
+        }
+        return response;
+    }
+
 }
