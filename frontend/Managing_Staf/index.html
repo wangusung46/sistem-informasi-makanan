@@ -46,6 +46,7 @@
               <a href="../index.html" class="btn btn-primary fw-bold">Tambah Data</a>
           
             </small>
+            <button class="get" >get</button>
           </div>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
       <thead>
@@ -91,7 +92,7 @@
   </main>
 
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -104,34 +105,23 @@
 
 <script>
   $(function () {
-    $(document).on('click', '.login', function (e) {
-      e.preventDefault();
-      const a = [];
-      const data = {
-        'password': $('.pwd').val(),
-        'username': $('.username').val(),
-      }
-
-      const rawData = new URLSearchParams(Object.keys(data).map(key => [key, data[key]]));
+    $(document).ready(function () {
+      var get = JSON.parse(localStorage.getItem("session"));
+      var token = get.data.access_token;
       axios
-        .post('http://localhost:8083/login', rawData.toString())
-        .then(function (response) {
-          // a.push(response)
-          localStorage.setItem('session', JSON.stringify(response));
-          var get = JSON.parse(localStorage.getItem("session"));
-          if (response.data.id == "[ROLE_ADMIN]") {
-            window.location.href = "Managing_staf";
-            // alert("ROLE_ADMIN");
-          } else if (response.data.id == "ROLE_DRIVER") {
-            // alert("ROLE_DRIVER");
-            window.location.href = "Delivery_staf";
-          } else {
-            // alert("ROLE_CUSTOMER");
-            window.location.href = "Costumers";
+        .get('http://localhost:8083/items', {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-type": "Application/json",
+            "Authorization": `Bearer ${token}`
           }
         })
+        .then(function (response) {
+    
+          console.log(response)
+        })
         .catch(function (error) {
-          alert("error");
+          console.log(response)
         });
     });
   });
