@@ -152,7 +152,7 @@
                 var get = JSON.parse(localStorage.getItem("session"));
                 var token = get.data.access_token;
                 axios
-                    .get('http://localhost:8083/items', {
+                    .get('http://localhost:8083/admin/items', {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-type": "Application/json",
@@ -204,7 +204,7 @@
                 }
                 console.log(data)
                 axios
-                    .post('http://localhost:8083/items/save', data, {
+                    .post('http://localhost:8083/admin/items/save', data, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-type": "Application/json",
@@ -244,7 +244,7 @@
                 }
                 console.log(data)
                 axios
-                    .post('http://localhost:8083/items/delete', data, {
+                    .post('http://localhost:8083/admin/items/delete', data, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-type": "Application/json",
