@@ -8,6 +8,8 @@ public interface TransactionDetailResponse {
 
     String getNameUser();
     
+    String getEmailUser();
+
     Long getIdItem();
     
     String getNameItem();

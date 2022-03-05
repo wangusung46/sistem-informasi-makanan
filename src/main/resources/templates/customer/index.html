@@ -23,12 +23,12 @@
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <h1 class="h4 mt-1 mx-5 fw-bold ">LOGO/BRAND</h1>
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="./index.html" class="nav-link px-2 text-info">Home</a></li>
-        <li><a href="./profile.html" class="nav-link px-2 text-white">Profile</a></li>
-        <li><a href="./transacition.html" class="nav-link px-2 text-white">Transacition</a></li>
-        <li><a href="./cart.html" class="nav-link px-2 text-white">Cart</a></li>
-      </ul>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="./index.html" class="nav-link px-2 text-info">Home</a></li>
+          <li><a href="./profile.html" class="nav-link px-2 text-white">Profile</a></li>
+          <li><a href="./transacition.html" class="nav-link px-2 text-white">Transacition</a></li>
+          <li><a href="./cart.html" class="nav-link px-2 text-white">Cart</a></li>
+        </ul>
       </div>
     </div>
   </header>
@@ -83,67 +83,94 @@
     <!-- end banner -->
 
     <div class="container p-4">
-      <div class="row">
-        <!-- product -->
-        <div class="col-md-4 p-1">
-          <div class="card h-100">
-            <img src="../assets/d6.jpg" class="card-img-top" alt="" height="250px">
-            <div class="card-body">
-              <h1 class="h5 fw-bold card-title mb-0 ">Card Title</h1>
-              <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, officiis!</p>
-              <div class="d-flex justify-content-between">
-                <div>
-                  <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
-                        srcset=""></span> 4.9 <span class="text-muted">(120)</span></h1>
-                </div>
-                <a href="produk_detail.html" class="btn btn-sm btn-dark bg-gardient px-4">Order</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end product -->
-        <!-- product -->
-        <div class="col-md-4 p-1">
-          <div class="card h-100">
-            <img src="../assets/d6.jpg" class="card-img-top" alt="" height="250px">
-            <div class="card-body">
-              <h1 class="h5 fw-bold card-title mb-0 ">Card Title</h1>
-              <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, officiis!</p>
-              <div class="d-flex justify-content-between">
-                <div>
-                  <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
-                        srcset=""></span> 4.9 <span class="text-muted">(120)</span></h1>
-                </div>
-                <a href="produk_detail.html" class="btn btn-sm btn-dark bg-gardient px-4">Order</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end product -->
-        <!-- product -->
-        <div class="col-md-4 p-1">
-          <div class="card h-100">
-            <img src="../assets/d6.jpg" class="card-img-top" alt="" height="250px">
-            <div class="card-body">
-              <h1 class="h5 fw-bold card-title mb-0 ">Card Title</h1>
-              <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, officiis!</p>
-              <div class="d-flex justify-content-between">
-                <div>
-                  <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
-                        srcset=""></span> 4.9 <span class="text-muted">(120)</span></h1>
-                </div>
-                <a href="produk_detail.html" class="btn btn-sm btn-dark bg-gardient px-4">Order</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end product -->
+      <div class="row product">
+
       </div>
     </div>
   </main>
 
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/axios.min.js"></script>
+  <script src="../assets/jquery-3.6.0.min.js"></script>
 
+  <script>
+    $(document).ready(function () {
+      var get = JSON.parse(localStorage.getItem("session"));
+      var token = get.data.access_token;
+      axios
+        .get('http://localhost:8083/customer/items', {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-type": "Application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        .then(function (response) {
+          console.log(response.data)
+          $.each(response.data.payload, function (key, values) {
+            if (values.active == true) {
+              $('.product').append(`
+  <div class="col-md-4 p-1">
+          <div class="card h-100">
+            <img src="../assets/d6.jpg" class="card-img-top" alt="" height="250px">
+            <div class="card-body">
+              <h1 class="h5 fw-bold card-title mb-0 ">Card Title</h1>
+              <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, officiis!</p>
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
+                        srcset=""></span> 4.9 <span class="text-muted">(120)</span></h1>
+                </div>
+                <button class="btn btn-sm btn-dark bg-gardient px-4 order" value="${values.id}">Order</button>
+              </div>
+            </div>
+          </div>
+        </div>`);
+            }
+
+          });
+
+        })
+        .catch(function (error) {
+          console.log(error)
+          alert('ERROR');
+        });
+
+      // =============================================================================================================
+      // EVENT DELETE
+      // =============================================================================================================
+      $(document).on('click', '.order', function (e) {
+        e.preventDefault();
+        const id = $(this).val()
+
+
+        window.location.href = "transacition.html";
+        var get = JSON.parse(localStorage.getItem("session"));
+        var token = get.data.access_token;
+        const data = {
+          "countItem": 0,
+          "idItem": 0,
+          "idUser": 0,
+          "status": "string"
+        }
+        axios
+          .post('http://localhost:8083/customer/transactions/save', data, {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-type": "Application/json",
+              "Authorization": `Bearer ${token}`
+            }
+          })
+          .then(function (response) {
+            console.log(response)
+            window.location.href = "transacition.html";
+          })
+          .catch(function (error) {
+            console.log(error)
+          });
+      });
+    });
+  </script>
 </body>
 
 </html>
