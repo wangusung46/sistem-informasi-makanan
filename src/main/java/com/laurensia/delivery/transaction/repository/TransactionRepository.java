@@ -51,6 +51,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "i.name AS nameItem, "
             + "SUM(t.countItem) AS countItem, "
             + "t.status AS status, "
+            + "i.price AS price, "
             + "SUM(t.countItem * i.price) AS total, "
             + "((SUM(COALESCE(r.rate, 0))) / (COUNT(r.rate) * 5)) * 5 AS rate "
             + "FROM Transaction t "

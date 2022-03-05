@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             for (User user : users) {
                 if (user.getActive()) {
                     UserDetailResponse detailResponse = new UserDetailResponse();
-                    
+
                     detailResponse.setActive(user.getActive());
                     detailResponse.setAddress(user.getAddress());
                     detailResponse.setEmail(user.getEmail());
@@ -81,28 +81,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public BaseResponse<UserSaveResponse> saveUser(UserSaveRequest request) {
         BaseResponse<UserSaveResponse> response = new BaseResponse<>();
         UserSaveResponse detailResponse = new UserSaveResponse();
-        User user = new User();
-        user.setActive(Boolean.TRUE);
-        user.setAddress(request.getAddress());
-        user.setEmail(request.getEmail());
-        user.setGender(request.getGender());
-        user.setIc(request.getIc());
-        user.setName(request.getName());
-        user.setPassword(request.getPassword());
-        user.setPhone(request.getPhone());
-        user.setRoles(request.getRole());
-        userRepository.save(user);
+        if (userRepository.findByEmail(request.getEmail()) != null) {
+            User user = new User();
+            user.setActive(Boolean.TRUE);
+            user.setAddress(request.getAddress());
+            user.setEmail(request.getEmail());
+            user.setGender(request.getGender());
+            user.setIc(request.getIc());
+            user.setName(request.getName());
+            user.setPassword(request.getPassword());
+            user.setPhone(request.getPhone());
+            user.setRoles(request.getRole());
+            userRepository.save(user);
 
-        detailResponse.setActive(Boolean.TRUE);
-        detailResponse.setAddress(request.getAddress());
-        detailResponse.setEmail(request.getEmail());
-        detailResponse.setGender(request.getGender());
-        detailResponse.setIc(request.getIc());
-        detailResponse.setName(request.getName());
-        detailResponse.setPhone(request.getPhone());
-        
-        response.setStatus(true);
-        response.setPayload(detailResponse);
+            detailResponse.setActive(Boolean.TRUE);
+            detailResponse.setAddress(request.getAddress());
+            detailResponse.setEmail(request.getEmail());
+            detailResponse.setGender(request.getGender());
+            detailResponse.setIc(request.getIc());
+            detailResponse.setName(request.getName());
+            detailResponse.setPhone(request.getPhone());
+
+            response.setStatus(true);
+            response.setPayload(detailResponse);
+        } else {
+            response.setStatus(false);
+        }
+
         return response;
     }
 
@@ -150,7 +155,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User optional = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if (optional != null) {
             if (optional.getActive()) {
-                
+
                 detailResponse.setActive(optional.getActive());
                 detailResponse.setAddress(optional.getAddress());
                 detailResponse.setEmail(optional.getEmail());

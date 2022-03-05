@@ -8,6 +8,8 @@ public interface TransactionDetailTotalResponse {
     
     String getNameItem();
     
+    Integer getPrice();
+    
     Integer getCountItem();
     
     String getStatus();

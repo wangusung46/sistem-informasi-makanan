@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Master Product</title>
+    <title>Master User</title>
 
 
     <!-- Bootstrap core CSS -->
@@ -29,8 +29,8 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <h1 class="h4 mt-1 mx-5 fw-bold">LOGO/BRAND</h1>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="./user.html" class="nav-link px-2 text-white">Master User</a></li>
-                    <li><a href="./produk.html" class="nav-link px-2 text-info">Master Items</a></li>
+                    <li><a href="./user.html" class="nav-link px-2 text-info">Master User</a></li>
+                    <li><a href="./produk.html" class="nav-link px-2 text-white">Master Items</a></li>
                     <li><a href="./transaction.html" class="nav-link px-2 text-white">Master Transaction</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Profile</a></li>
                 </ul>
@@ -44,7 +44,7 @@
 
             <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
                 <div>
-                    <h1 class="mt-3 h4 text-muted">Master items</h1>
+                    <h1 class="mt-3 h4 text-muted">Master User</h1>
                 </div>
                 <small class=" text-nowrap mb-2">
                     <!-- Button trigger modal -->
@@ -68,11 +68,27 @@
                                         <input type="text" class="form-control name">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Price</label>
+                                        <label class="form-label">Gender</label>
                                         <input type="text" class="form-control price">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Stock</label>
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" class="form-control stock">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">IC</label>
+                                        <input type="text" class="form-control stock">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control stock">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control stock">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Action</label>
                                         <input type="text" class="form-control stock">
                                     </div>
                                 </div>
@@ -92,19 +108,25 @@
                         <thead class="text-center">
                             <tr>
                                 <th>Nama</th>
-                                <th>Price</th>
-                                <th>Stock</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                                <th>IC</th>
+                                <th>Email</th>
+                                <th>Address</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="dataitems">
+                        <tbody id="datausers">
 
                         </tbody>
                         <tfoot class="text-center">
                             <tr>
                                 <th>Nama</th>
-                                <th>Price</th>
-                                <th>Stock</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                                <th>IC</th>
+                                <th>Email</th>
+                                <th>Address</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -152,7 +174,7 @@
                 var get = JSON.parse(localStorage.getItem("session"));
                 var token = get.data.access_token;
                 axios
-                    .get('http://localhost:8083/admin/items', {
+                    .get('http://localhost:8083/admin/users', {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-type": "Application/json",
@@ -162,11 +184,14 @@
                     .then(function (response) {
                         console.log(response.data)
                         $.each(response.data.payload, function (key, values) {
-                            $('#dataitems').append(`
+                            $('#datausers').append(`
                                 <tr >
-                                    <td width='20'> ${values.name} </td>
-                                    <td width='50'>${values.price}</td>
-                                    <td width='20'>${values.stock}</td>
+                                    <td width='20'>${values.name} </td>
+                                    <td width='50'>${values.gender}</td>
+                                    <td width='20'>${values.phone}</td>
+                                    <td width='20'>${values.ic}</td>
+                                    <td width='20'>${values.email}</td>
+                                    <td width='20'>${values.address}</td>
                                     <td class="text-center"width='10'>
                                     <span>         
                                         <button type="button" value="${values.id}" class="btn btn-dark btn-sm mx-2 mb-2 update" >Update</button >
@@ -199,12 +224,17 @@
                 const a = [];
                 const data = {
                     'name': $('.name').val(),
-                    'price': $('.price').val(),
-                    'stock': $('.stock').val(),
+                    'gender': $('.gender').val(),
+                    'phone': $('.phone').val(),
+                    'ic': $('.ic').val(),
+                    'email': $('.email').val(),
+                    'address': $('.address').val(),
+                    'password': $('.password').val(),
+                    'gender': $('.gender').val(),
                 }
                 console.log(data)
                 axios
-                    .post('http://localhost:8083/admin/items/save', data, {
+                    .post('http://localhost:8083/admin/users/save', data, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-type": "Application/json",
@@ -244,7 +274,7 @@
                 }
                 console.log(data)
                 axios
-                    .post('http://localhost:8083/admin/items/delete', data, {
+                    .post('http://localhost:8083/admin/users/delete', data, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-type": "Application/json",

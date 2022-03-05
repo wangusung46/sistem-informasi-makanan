@@ -71,7 +71,7 @@ public class DeliveryApplication {
     @Bean
     CommandLineRunner run(UserService userService, ItemService itemService, TransactionService transactionService, RatingService ratingService) {
         return args -> {
-//            userService.saveUser(new UserSaveRequest(getSaltString(), "Male", getSaltNumber(), getSaltNumber(), getSaltEmail(), getSaltString(), "1", "ROLE_CUSTOMER"));
+            userService.saveUser(new UserSaveRequest(getSaltString(), "Male", getSaltNumber(), getSaltNumber(), getSaltEmail(), getSaltString(), "1", "ROLE_CUSTOMER"));
 //            userService.saveUser(new UserSaveRequest(getSaltString(), "Famale", getSaltNumber(), getSaltNumber(), getSaltEmail(), getSaltString(), "1", "ROLE_CUSTOMER"));
 //            userService.saveUser(new UserSaveRequest(getSaltString(), "Male", getSaltNumber(), getSaltNumber(), getSaltEmail(), getSaltString(), "1", "ROLE_CUSTOMER"));
 //            userService.saveUser(new UserSaveRequest(getSaltString(), "Famale", getSaltNumber(), getSaltNumber(), getSaltEmail(), getSaltString(), "1", "ROLE_CUSTOMER"));
