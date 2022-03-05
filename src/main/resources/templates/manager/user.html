@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Master User</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="../assets/datatables/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="../assets/datatables/buttons.bootstrap5.min.css" rel="stylesheet">
+
+    <!-- https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css
+    https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap5.min.css -->
+
+
+
+</head>
+
+<body>
+    <header class="p-3 bg-dark text-white ">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <h1 class="h4 mt-1 mx-5 fw-bold">LOGO/BRAND</h1>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="./user.html" class="nav-link px-2 text-info">Master User</a></li>
+                    <li><a href="./product.html" class="nav-link px-2 text-white">Master Items</a></li>
+                    <li><a href="./transaction.html" class="nav-link px-2 text-white">Master Transaction</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="container py-4">
+
+            <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
+                <div>
+                    <h1 class="mt-3 h4 text-muted">Master User</h1>
+                </div>
+                <small class=" text-nowrap mb-2">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
+                        Create
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="create" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createLabel">Craete Items</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul id="save_error_list"></ul>
+                                    <div class="mb-3">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Gender</label>
+                                        <select id="gender" class="form-control gender">
+                                            <option value="Male">Male</option>
+                                            <option value="Famale">Famale</option>
+                                          </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" class="form-control phone">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">IC</label>
+                                        <input type="text" class="form-control ic">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control email">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control address">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Role</label>
+                                        <select id="role" class="form-control role">
+                                            <option value="ROLE_STAFF">Staff</option>
+                                            <option value="ROLE_CUSTOMER">Customer</option>
+                                          </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="text" class="form-control password">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary insert">save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </small>
+            </div>
+            <div class="card">
+                <div class="card-body datamaster">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Nama</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                                <th>IC</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="datausers">
+
+                        </tbody>
+                        <tfoot class="text-center">
+                            <tr>
+                                <th>Nama</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                                <th>IC</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+    <!-- Modal Update -->
+    <div class="modal fade" id="update" tabindex="-1" aria-labelledby="updateLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/axios.min.js"></script>
+    <script src="../assets/jquery-3.6.0.min.js"></script>
+    <script src="../assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap5.min.js"></script>
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script>
+        $(function () {
+
+            $(document).ready(function () {
+                var get = JSON.parse(localStorage.getItem("session"));
+                var token = get.data.access_token;
+                axios
+                    .get('http://localhost:8083/admin/users', {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-type": "Application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    })
+                    .then(function (response) {
+                        console.log(response.data)
+                        $.each(response.data.payload, function (key, values) {
+                            $('#datausers').append(`
+                                <tr >
+                                    <td width='20'>${values.name} </td>
+                                    <td width='50'>${values.gender}</td>
+                                    <td width='20'>${values.phone}</td>
+                                    <td width='20'>${values.ic}</td>
+                                    <td width='20'>${values.email}</td>
+                                    <td width='20'>${values.address}</td>
+                                    <td class="text-center"width='10'>
+                                    <span>         
+                                        <button type="button" value="${values.id}" class="btn btn-dark btn-sm mx-2 mb-2 update" >Update</button >
+                                        <button type="button" value="${values.id}" class="btn btn-danger btn-sm mx-2 delete" >Delete</button >
+                                    </span>
+                                    </td>
+                                </tr>`);
+                        });
+                        var table = $('#example').DataTable({
+                            lengthChange: false,
+                            pageLength: 5,
+                            buttons: ['excel', 'pdf',]
+                        });
+                        table.buttons().container()
+                            .appendTo('#example_wrapper .col-md-6:eq(0)');
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                        alert('ERROR');
+                    });
+            });
+
+            // =============================================================================================================
+            // EVENT CREATE
+            // =============================================================================================================
+            $(document).on('click', '.insert', function (e) {
+                e.preventDefault();
+                var get = JSON.parse(localStorage.getItem("session"));
+                var token = get.data.access_token;
+                const a = [];
+                const data = {
+                    'name': $('.name').val(),
+                    'gender': $('.gender').val(),
+                    'phone': $('.phone').val(),
+                    'ic': $('.ic').val(),
+                    'email': $('.email').val(),
+                    'address': $('.address').val(),
+                    'password': $('.password').val(),
+                    'gender': $('.gender').val(),
+                }
+                console.log(data)
+                axios
+                    .post('http://localhost:8083/admin/users/save', data, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-type": "Application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    })
+                    .then(function (response) {
+                        console.log(response)
+                        $('#create').modal('hide');
+                        $('#create').find('input').val('');
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+            });
+            // =============================================================================================================
+            // EVENT UPDATE
+            // =============================================================================================================
+            $(document).on('click', '.update', function (e) {
+                e.preventDefault();
+                var delete_id = $(this).val();
+                console.log(delete_id);
+                $('#update').modal('show');
+            });
+            // =============================================================================================================
+            // EVENT DELETE
+            // =============================================================================================================
+            $(document).on('click', '.delete', function (e) {
+                e.preventDefault();
+                var delete_id = $(this).val();
+                console.log(delete_id);
+                var get = JSON.parse(localStorage.getItem("session"));
+                var token = get.data.access_token;
+                const a = [];
+                const data = {
+                    'id': delete_id,
+                }
+                console.log(data)
+                axios
+                    .post('http://localhost:8083/admin/users/delete', data, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-type": "Application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    })
+                    .then(function (response) {
+                        console.log(response)
+                        location.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
