@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -81,7 +82,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public BaseResponse<UserSaveResponse> saveUser(UserSaveRequest request) {
         BaseResponse<UserSaveResponse> response = new BaseResponse<>();
         UserSaveResponse detailResponse = new UserSaveResponse();
-        if (userRepository.findByEmail(request.getEmail()) != null) {
+        if (userRepository.findByEmail(request.getEmail()) == null) {
             User user = new User();
             user.setActive(Boolean.TRUE);
             user.setAddress(request.getAddress());
@@ -89,7 +90,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setGender(request.getGender());
             user.setIc(request.getIc());
             user.setName(request.getName());
-            user.setPassword(request.getPassword());
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
             user.setPhone(request.getPhone());
             user.setRoles(request.getRole());
             userRepository.save(user);
