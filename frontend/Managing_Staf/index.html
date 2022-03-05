@@ -13,7 +13,7 @@
 
 
   <!-- Bootstrap core CSS -->
-  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -92,15 +92,33 @@
   </main>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script> -->
+
+
+  <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/jquery-3.6.0.min.js"></script>
+  <script src="/assets/axios.min.js"></script>
 <script>
   $(document).ready(function () {
       $('#example').DataTable();
     });
+
+    $(document).on('click', '.insert', function (e) {
+        e.preventDefault();
+
+        var data = {
+          'name': $('.name').val(),
+          'email': $('.email').val(),
+          'username': $('.username').val(),
+          'phone': $('.phone').val(),
+          'dob': $('.dob').val(),
+        }
+        console.log(data);
+      });
 </script>
 
 <script>
@@ -117,7 +135,6 @@
           }
         })
         .then(function (response) {
-    
           console.log(response)
         })
         .catch(function (error) {
