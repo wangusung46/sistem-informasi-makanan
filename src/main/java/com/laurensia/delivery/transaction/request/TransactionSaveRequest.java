@@ -13,8 +13,6 @@ import lombok.ToString;
 @ToString
 public class TransactionSaveRequest {
 
-    private Long idUser;
-
     private Long idItem;
     
     private Integer countItem;

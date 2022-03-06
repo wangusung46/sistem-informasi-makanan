@@ -7,10 +7,13 @@ import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
+import com.laurensia.delivery.user.model.User;
+import com.laurensia.delivery.user.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Service;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
+    
+    private final UserRepository userRepository;
 
     @Override
     public BaseResponse<TransactionSaveResponse> saveTransaction(TransactionSaveRequest request) {
@@ -27,14 +32,15 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = new Transaction();
         transaction.setCountItem(request.getCountItem());
         transaction.setIdItem(request.getIdItem());
-        transaction.setIdUser(request.getIdUser());
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        transaction.setIdUser(user.getId());
         transaction.setStatus(request.getStatus());
         transaction.setStatus(request.getStatus());
         transactionRepository.save(transaction);
 
         detailResponse.setCountItem(request.getCountItem());
         detailResponse.setIdItem(request.getIdItem());
-        detailResponse.setIdUser(request.getIdUser());
+        detailResponse.setIdUser(user.getId());
         detailResponse.setStatus(request.getStatus());
 
         response.setStatus(true);
