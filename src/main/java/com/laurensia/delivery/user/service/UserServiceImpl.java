@@ -5,6 +5,7 @@ import com.laurensia.delivery.baseresponse.BaseResponse;
 import com.laurensia.delivery.user.model.User;
 import com.laurensia.delivery.user.repository.UserRepository;
 import com.laurensia.delivery.user.request.UserIdRequest;
+import com.laurensia.delivery.user.request.UserRegistrationRequest;
 import com.laurensia.delivery.user.request.UserSaveRequest;
 import com.laurensia.delivery.user.response.UserDetailResponse;
 import com.laurensia.delivery.user.response.UserSaveResponse;
@@ -181,6 +182,41 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = new User();
         user = userRepository.findByEmail(email);
         return user.getName();
+    }
+
+    @Override
+    public BaseResponse<UserSaveResponse> saveUser(UserRegistrationRequest request) {
+        BaseResponse<UserSaveResponse> response = new BaseResponse<>();
+        UserSaveResponse detailResponse = new UserSaveResponse();
+        if (userRepository.findByEmail(request.getEmail()) == null) {
+            User user = new User();
+            user.setActive(Boolean.TRUE);
+            user.setAddress(request.getAddress());
+            user.setEmail(request.getEmail());
+            user.setGender(request.getGender());
+            user.setIc(request.getIc());
+            user.setName(request.getName());
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            user.setPhone(request.getPhone());
+            user.setRoles("ROLE_CUSTOMER");
+            userRepository.save(user);
+
+            detailResponse.setActive(Boolean.TRUE);
+            detailResponse.setAddress(request.getAddress());
+            detailResponse.setEmail(request.getEmail());
+            detailResponse.setGender(request.getGender());
+            detailResponse.setIc(request.getIc());
+            detailResponse.setName(request.getName());
+            detailResponse.setPhone(request.getPhone());
+
+            response.setStatus(true);
+            response.setPayload(detailResponse);
+        } else {
+            response.setStatus(false);
+        }
+
+        return response;
     }
 
 }

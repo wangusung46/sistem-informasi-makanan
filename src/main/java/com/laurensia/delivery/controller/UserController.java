@@ -3,6 +3,7 @@ package com.laurensia.delivery.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.laurensia.delivery.baseresponse.BaseResponse;
 import com.laurensia.delivery.user.request.UserIdRequest;
+import com.laurensia.delivery.user.request.UserRegistrationRequest;
 import com.laurensia.delivery.user.request.UserSaveRequest;
 import com.laurensia.delivery.user.response.UserDetailResponse;
 import com.laurensia.delivery.user.response.UserSaveResponse;
@@ -27,6 +28,13 @@ public class UserController {
     public ResponseEntity<BaseResponse<?>> doCustomerUser() throws JsonProcessingException {
         BaseResponse<UserDetailResponse> response = new BaseResponse<>();
         response = userService.getUser();
+        return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping(value = "/customer/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doCustomerUserRegister(@RequestBody UserRegistrationRequest request) throws JsonProcessingException {
+        BaseResponse<UserSaveResponse> response = new BaseResponse<>();
+        response = userService.saveUser(request);
         return ResponseEntity.ok(response);
     }
 

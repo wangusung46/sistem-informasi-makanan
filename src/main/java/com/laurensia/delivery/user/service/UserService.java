@@ -3,6 +3,7 @@ package com.laurensia.delivery.user.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.laurensia.delivery.baseresponse.BaseResponse;
 import com.laurensia.delivery.user.request.UserIdRequest;
+import com.laurensia.delivery.user.request.UserRegistrationRequest;
 import com.laurensia.delivery.user.request.UserSaveRequest;
 import com.laurensia.delivery.user.response.UserDetailResponse;
 import com.laurensia.delivery.user.response.UserSaveResponse;
@@ -23,5 +24,7 @@ public interface UserService {
     public BaseResponse<UserDetailResponse> getUser();
     
     public String getName(String email);
+
+    public BaseResponse<UserSaveResponse> saveUser(UserRegistrationRequest request);
 
 }
