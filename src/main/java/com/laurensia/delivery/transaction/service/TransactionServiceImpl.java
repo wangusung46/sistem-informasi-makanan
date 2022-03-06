@@ -39,6 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         detailResponse.setCountItem(request.getCountItem());
         detailResponse.setIdItem(request.getIdItem());
+        detailResponse.setIdEmail(user.getEmail());
         detailResponse.setIdUser(user.getId());
         detailResponse.setStatus("ORDER");
 

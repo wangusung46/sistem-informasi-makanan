@@ -14,6 +14,8 @@ public class TransactionSaveResponse {
     private Long idUser;
 
     private Long idItem;
+
+    private String idEmail;
     
     private Integer countItem;
     
