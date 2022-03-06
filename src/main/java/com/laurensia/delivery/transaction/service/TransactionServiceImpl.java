@@ -34,14 +34,13 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setIdItem(request.getIdItem());
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         transaction.setIdUser(user.getId());
-        transaction.setStatus(request.getStatus());
-        transaction.setStatus(request.getStatus());
+        transaction.setStatus("ORDER");
         transactionRepository.save(transaction);
 
         detailResponse.setCountItem(request.getCountItem());
         detailResponse.setIdItem(request.getIdItem());
         detailResponse.setIdUser(user.getId());
-        detailResponse.setStatus(request.getStatus());
+        detailResponse.setStatus("ORDER");
 
         response.setStatus(true);
         response.setPayload(detailResponse);
