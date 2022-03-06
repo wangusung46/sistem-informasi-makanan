@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.88.1">
-  <title>Bottom navbar example · Bootstrap v5.1</title>
+  <title>HOME</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbar-bottom/">
 
@@ -131,24 +131,23 @@
           $.each(response.data.payload, function (key, values) {
             if (values.active == true) {
               $('.product').append(`
-  <div class="col-md-4 p-1">
-          <div class="card h-100">
-            <img src="../assets/d6.jpg" class="card-img-top" alt="" height="250px">
-            <div class="card-body">
-              <h1 class="h5 fw-bold card-title mb-0 ">${values.name}</h1>
-              <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, officiis!</p>
-              <div class="d-flex justify-content-between">
-                <div>
-                  <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
-                        srcset=""></span> 4.9 <span class="text-muted">(120)</span></h1>
-                </div>
-                <button class="btn btn-sm btn-dark bg-gardient px-4 order" value="${values.id}">Order</button>
-              </div>
-            </div>
-          </div>
-        </div>`);
+                  <div class="col-md-4 p-1">
+                      <div class="card h-100">
+                        <img src="../assets/d6.jpg" class="card-img-top" alt="" height="250px">
+                        <div class="card-body">
+                          <h1 class="h5 fw-bold card-title mb-0 ">${values.name}</h1>
+                          
+                          <div class="d-flex justify-content-between">
+                            <div>
+                              <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
+                                    srcset=""></span> 4.9 <span class="text-muted">(120)</span></h1>
+                            </div>
+                            <button class="btn btn-sm btn-dark bg-gardient px-4 order" value="${values.id}">Order</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`);
             }
-
           });
 
         })

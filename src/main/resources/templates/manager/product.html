@@ -8,26 +8,16 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
     <title>Master Product</title>
-
-
-    <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="../assets/datatables/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="../assets/datatables/buttons.bootstrap5.min.css" rel="stylesheet">
-
-    <!-- https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css
-    https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap5.min.css -->
-
-
-
 </head>
 
-<body>
+<body class="bg-secondary">
     <header class="p-3 bg-dark text-white ">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <h1 class="h4 mt-1 mx-5 fw-bold">LOGO/BRAND</h1>
+                <h1 class="h4 mt-2 mx-5 fw-bold">LOGO/BRAND</h1>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="./user.html" class="nav-link px-2 text-white">Master User</a></li>
                     <li><a href="./product.html" class="nav-link px-2 text-info">Master Items</a></li>
@@ -37,22 +27,17 @@
             </div>
         </div>
     </header>
-
-
     <main>
         <div class="container py-4">
-
             <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
                 <div>
-                    <h1 class="mt-3 h4 text-muted">Master items</h1>
+                    <h1 class="mt-3 h4 text-white">Master items</h1>
                 </div>
                 <small class=" text-nowrap mb-2">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
-                        Create
+                    <button type="button" class="btn btn-warning px-5" data-bs-toggle="modal" data-bs-target="#create">
+                        Create Product
                     </button>
 
-                    <!-- Modal -->
                     <div class="modal fade" id="create" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -62,7 +47,6 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <ul id="save_error_list"></ul>
                                     <div class="mb-3">
                                         <label class="form-label">Name</label>
                                         <input type="text" class="form-control name">
@@ -142,12 +126,11 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap5.min.js"></script>
-    <script src=" https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
     <script>
         $(function () {
-
             $(document).ready(function () {
                 var get = JSON.parse(localStorage.getItem("session"));
                 var token = get.data.access_token;

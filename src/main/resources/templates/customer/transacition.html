@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Bottom navbar example · Bootstrap v5.1</title>
+    <title>Transaction</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbar-bottom/">
 
@@ -18,14 +18,14 @@
 
 </head>
 
-<body>
+<body class="bg-secondary">
     <header class="p-3 bg-dark text-white ">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <h1 class="h4 mt-1 mx-5 fw-bold text-secondary">LOGO/BRAND</h1>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="./index.html" class="nav-link px-2 text-white">Home</a></li>
-                    <li><a href="./transacition.html" class="nav-link px-2 text-info">Transacition</a></li>
+                    <li><a href="./transacition.html" class="nav-link px-2 text-info">Transaction</a></li>
                     <li><a href="./profile.html" class="nav-link px-2 text-white">Profile</a></li>
                 </ul>
             </div>
@@ -33,7 +33,7 @@
     </header>
     <main>
         <div class="container py-4">
-            <h1 class="mt-3 h4 px-3 text-muted">Transacition</h1>
+            <h1 class="mt-3 h4 px-3 text-white mb-5">Transaction</h1>
             <div class="list-group list-group-flush status">
 
 
@@ -72,11 +72,11 @@
 
                             </div>
                         </div>
-                        <h1 class="mt-3 h4 px-3 text-muted">Ulasan</h1>
-                        <div class="list-group list-group-flush rw-list">
+                        <div class="card card-body mt-3 shadow">
 
-
-
+                            <h1 class="mt-3 h4 px-3 text-muted">Review</h1>
+                            <div class="list-group list-group-flush rw-list">
+                            </div>
                         </div>
                     </div>
                 </main>
@@ -173,13 +173,14 @@
                                 //    console.log(c);
                                 $('.detail').append(`
                                 <h1 class="card-title">OMPUS</h1>
-                                <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, officiis!</p>
             
                                 <h1 class="h6 fw-bold mt-3">Rating</h1>
                                 <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
                                             srcset=""></span> ${values.rate}
                                     <span class="text-muted">(120)</span>
                                 </h1>
+                                 <a href="index.html" class="w-100 mt-3 btn  btn-danger bg-gardient reg"
+                                        type="submit">Go Home</a>
                                 
                                 `);
 

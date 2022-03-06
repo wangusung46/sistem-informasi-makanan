@@ -23,7 +23,7 @@
 
 </head>
 
-<body>
+<body class="bg-secondary">
     <header class="p-3 bg-dark text-white ">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -44,12 +44,12 @@
 
             <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
                 <div>
-                    <h1 class="mt-3 h4 text-muted">Master User</h1>
+                    <h1 class="mt-3 h4 text-white mb-4">Master User</h1>
                 </div>
                 <small class=" text-nowrap mb-2">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
-                        Create
+                    <button type="button" class="btn btn-warning px-5" data-bs-toggle="modal" data-bs-target="#create">
+                        Create New User
                     </button>
 
                     <!-- Modal -->
@@ -147,24 +147,6 @@
         </div>
     </main>
 
-
-    <!-- Modal Update -->
-    <div class="modal fade" id="update" tabindex="-1" aria-labelledby="updateLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>

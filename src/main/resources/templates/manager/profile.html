@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Bottom navbar example · Bootstrap v5.1</title>
+    <title>Page Profile</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbar-bottom/">
 
@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body class="bg-secondary">
     <header class="p-3 bg-dark text-white ">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -25,8 +25,8 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="./user.html" class="nav-link px-2 text-white">Master User</a></li>
                 <li><a href="./product.html" class="nav-link px-2 text-white">Master Items</a></li>
-                <li><a href="./transaction.html" class="nav-link px-2 text-info">Master Transaction</a></li>
-                <li><a href="profile.html" class="nav-link px-2 text-white">Profile</a></li>
+                <li><a href="./transaction.html" class="nav-link px-2 text-white">Master Transaction</a></li>
+                <li><a href="profile.html" class="nav-link px-2 text-info">Profile</a></li>
                 </ul>
             </div>
         </div>
@@ -36,16 +36,16 @@
 
             <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
                 <div>
-                    <h3 class="mb-0">Profile</h3>
+                    <h3 class="mb-0 text-white">Profile</h3>
                 </div>
                 <small class=" text-nowrap mb-2">
-                    <a href="../index.html" class="btn btn-warning fw-bold">Logout</a>
+                    <a href="../index.html" class="btn btn-warning px-5 fw-bold">Logout</a>
 
                 </small>
             </div>
             <form class="row g-3">
                 <div class="col-12">
-                    <button type="button" class=" btn btn-dark bg-gardient" data-bs-toggle="modal"
+                    <button type="button" class=" btn btn-dark bg-gardient px-5" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         Update Profile
                     </button>
@@ -54,11 +54,6 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    <!-- <div class="col-12">
-                                        <label for="inputEmail4" class="form-label">Email</label>
-                                        <input type="email" class="form-control setemail" readonly value=""
-                                            id="inputEmail4">
-                                    </div> -->
                                     <div class="col-12">
                                         <label for="inputPassword4" class="form-label">Username</label>
                                         <input type="text" class="form-control name" id="inputPassword4">

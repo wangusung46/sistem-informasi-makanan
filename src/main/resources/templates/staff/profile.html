@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Bottom navbar example · Bootstrap v5.1</title>
+    <title>Profile Staff</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbar-bottom/">
 
@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body class="bg-secondary">
 <header class="p-3 bg-dark text-white ">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -35,7 +35,7 @@
 
         <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
             <div>
-                <h3 class="mb-0">Profile</h3>
+                <h3 class="mb-0 text-white">Profile</h3>
             </div>
             <small class=" text-nowrap mb-2">
                 <a href="../index.html" class="btn btn-warning fw-bold">Logout</a>
@@ -44,7 +44,7 @@
         </div>
         <form class="row g-3">
             <div class="col-12">
-                <button type="button" class=" btn btn-dark bg-gardient" data-bs-toggle="modal"
+                <button type="button" class=" btn px-5 btn-dark bg-gardient" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
                     Update Profile
                 </button>
@@ -52,32 +52,31 @@
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Update Profile</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
                             <div class="modal-body">
-                                <!-- <div class="col-12">
-                                        <label for="inputEmail4" class="form-label">Email</label>
-                                        <input type="email" class="form-control setemail" readonly value=""
-                                            id="inputEmail4">
-                                    </div> -->
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <label for="inputPassword4" class="form-label">Username</label>
                                     <input type="text" class="form-control name" id="inputPassword4">
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <label for="inputCity" class="form-label">phone</label>
                                     <input type="text" class="form-control phone" id="inputCity">
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <label for="inputState" class="form-label">gender</label>
                                     <select id="inputState" class="form-select gender">
                                         <option value="male">male</option>
                                         <option value="female">female</option>
                                     </select>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <label for="inputZip" class="form-label">IC</label>
                                     <input type="text" class="form-control ic" id="inputZip">
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mb-2">
                                     <label for="inputZip" class="form-label">Address</label>
                                     <input type="text" class="form-control addres" id="inputZip">
                                 </div>
@@ -85,8 +84,10 @@
                                     <label for="inputZip" class="form-label">password</label>
                                     <input type="text" class="form-control password" id="inputZip">
                                 </div>
-                                <button class="w-100 mt-3 btn  btn-success bg-gardient reg"
-                                    type="submit">Submit</button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary reg">Save changes</button>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -140,13 +141,9 @@
                 'password': password,
                 'phone': phone,
             }
-
-
             var get = JSON.parse(localStorage.getItem("session"));
             var token = get.data.access_token;
-
-
-            console.log(data)
+            // console.log(data)
             axios
                 .post('http://localhost:8083/staff/users/update', data, {
                     headers: {
