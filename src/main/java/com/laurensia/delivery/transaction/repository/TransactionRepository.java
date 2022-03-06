@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, i.name AS nameItem, "
+    @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, u.email AS emailUser, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
             + "COALESCE(r.rate, '0') AS rate, "
             + "COALESCE(r.review, 'Not Review') AS review "

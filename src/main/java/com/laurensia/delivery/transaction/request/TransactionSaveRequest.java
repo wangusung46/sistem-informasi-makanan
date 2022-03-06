@@ -16,6 +16,4 @@ public class TransactionSaveRequest {
     private Long idItem;
     
     private Integer countItem;
-    
-    private String status;
 }
