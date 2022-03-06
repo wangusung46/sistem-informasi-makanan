@@ -23,9 +23,9 @@
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <h1 class="h4 mt-1 mx-5 fw-bold">LOGO/BRAND</h1>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="./index.html" class="nav-link px-2 text-info">Order List</a></li>
-          <li><a href="./transacition.html" class="nav-link px-2 text-white">Transacition</a></li>
-          <li><a href="./profile.html" class="nav-link px-2 text-white">Profile</a></li>
+        <li><a href="index.html" class="nav-link px-2 text-info">Order List</a></li>
+        <li><a href="transaction.html" class="nav-link px-2 text-white">Transaction</a></li>
+        <li><a href="profile.html" class="nav-link px-2 text-white">Profile</a></li>
         </ul>
       </div>
     </div>
@@ -73,12 +73,12 @@
                     <div class="d-flex gap-2 w-100 justify-content-between">
                       <div>
                         <h6 class="mb-0">${values.nameUser}</h6>
-                        <p class="mb-0 opacity-75">Total harga</p>
+                        <p class="mb-0 opacity-75">Amount Rm ${values.total}</p>
                       </div>
                       <small class="text-nowrap ">
                           <form action="" method="post">
                             <input type="hidden" name="id_transaksi">
-                            <button type="submit" class="btn btn-dark">Get Order</button>
+                            <button type="submit" class="btn btn-dark insert" value="${values.id}">Get Order</button>
                           </form>      
                       </small>
                     </div>
@@ -116,7 +116,7 @@
           .then(function (response) {
             // console.log(response)
             alert('success')
-            location.reload();
+             window.location.href = "transaction.html";
           })
           .catch(function (error) {
             console.log(error)

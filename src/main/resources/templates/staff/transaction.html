@@ -24,9 +24,9 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <h1 class="h4 mt-1 mx-5 fw-bold text-secondary">LOGO/BRAND</h1>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="./index.html" class="nav-link px-2 text-white">Order List</a></li>
-                    <li><a href="./transacition.html" class="nav-link px-2 text-info">Transaction</a></li>
-                    <li><a href="./profile.html" class="nav-link px-2 text-white">Profile</a></li>
+                    <li><a href="index.html" class="nav-link px-2 text-white">Order List</a></li>
+                    <li><a href="transaction.html" class="nav-link px-2 text-info">Transaction</a></li>
+                    <li><a href="profile.html" class="nav-link px-2 text-white">Profile</a></li>
                 </ul>
             </div>
         </div>
@@ -62,31 +62,28 @@
                             var get = JSON.parse(localStorage.getItem("session"));
                             var email = get.data.email;
                             // alert(values.emailUser);
+
                             if (values.status != 'ORDER') {
-                                 if (values.emailUser == email) {
-                                    $('#datatransactions').append(`
+                                                              $('#datatransactions').append(`
                                 <div class="list-group list-group-flush ">
                                         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                                             <img src="../assets/brand/bootstrap-logo.svg" alt="twbs" width="32" height="32"
                                                 class="rounded-circle flex-shrink-0">
                                                 <div class="d-flex gap-2 w-100 justify-content-between">
                                                 <div>
-                                                    <h4 class="mb-0">Username : ${values.nameUser}</h4>
-                                                    <p class="mb-0">Item : ${values.nameItem}</p>
-                                                    <p class="mb-0">Count Item : ${values.countItem}</p>
-                                                    <p class="mb-0">Total Price : ${values.total}</p>
+                                                    <h5 class="mb-0">Username : ${values.nameUser}</h5>
+                                                    <p class="mb-0 opacity-75"  style="font-size: 18px;">Item : ${values.nameItem}</p>
+                                                    <p class="mb-0" style="font-size: 20px;">Count Item : ${values.countItem}</p>
+                                                    <p class="mb-0 opacity-75" style="font-size: 18px;">Total Price : ${values.total}</p>
                                                 </div>
                                                 <small class="fw-bold h5 text-nowrap">
                                                     <p>${values.status}</p>
-                                                    <button type="button" class="btn btn-primary insert" value="${values.id}">${values.status}</button>
+                                                    <button type="button" class="btn btn-warning insert" value="${values.id}">${values.status}</button>
                                                 </small>
                                             </div>
                                             </a>
                                     </div>`
-                                    );
-                                } else {
-                                   "<h3>Anda Belum Punya Transacition</h3>"
-                                }
+                                );
                             }
                            
 

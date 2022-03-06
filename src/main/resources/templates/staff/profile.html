@@ -23,81 +23,149 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <h1 class="h4 mt-1 mx-5 fw-bold text-secondary">LOGO/BRAND</h1>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="./index.html" class="nav-link px-2 text-white">Order List</a></li>
-                <li><a href="./transacition.html" class="nav-link px-2 text-white">Transacition</a></li>
-                <li><a href="./profile.html" class="nav-link px-2 text-info">Profile</a></li>
+<li><a href="index.html" class="nav-link px-2 text-white">Order List</a></li>
+<li><a href="transaction.html" class="nav-link px-2 text-white">Transaction</a></li>
+<li><a href="profile.html" class="nav-link px-2 text-info">Profile</a></li>
             </ul>
         </div>
     </div>
 </header>
-    <main>
-        <div class="container py-4">
+<main>
+    <div class="container py-4">
 
-            <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
-                <div>
-                    <h3 class="mb-0 text-muted">Profile</h3>
-                </div>
-                <small class=" text-nowrap mb-2">
-                    <a href="../index.html" class="btn btn-warning fw-bold">Logout</a>
-
-                </small>
+        <div class="d-flex gap-2 w-100 justify-content-between border-bottom mb-4">
+            <div>
+                <h3 class="mb-0">Profile</h3>
             </div>
-            <form class="row g-3">
-                <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Username</label>
-                    <input type="text" class="form-control" value="081233333" id="inputPassword4">
-                </div>
-                <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label">Email</label>
-                    <input type="email" class="form-control" readonly value="admin@gmail.com" id="inputEmail4">
-                </div>
-                <div class="col-md-6">
-                    <label for="inputCity" class="form-label">phone</label>
-                    <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="col-md-4">
-                    <label for="inputState" class="form-label">gender</label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Laki Laki</option>
-                        <option>Perempuan</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="inputZip" class="form-label">IC</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Update Profile</button>
-                        <!-- Testing login Modal -->
-                        <button type="button" class=" btn btn-dark bg-gardient" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            Update Password
-                        </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <form action="" method="post">
+            <small class=" text-nowrap mb-2">
+                <a href="../index.html" class="btn btn-warning fw-bold">Logout</a>
 
-                                            <label for="inputEmail4" class="form-label">password</label>
-                                            <input type="password" class="form-control">
-                                            <button type="submit" class="btn btn-dark mt-2 bg-gardient">Update password</button>
-                                        </form>
-                                    </div>
+            </small>
+        </div>
+        <form class="row g-3">
+            <div class="col-12">
+                <button type="button" class=" btn btn-dark bg-gardient" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Update Profile
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <!-- <div class="col-12">
+                                        <label for="inputEmail4" class="form-label">Email</label>
+                                        <input type="email" class="form-control setemail" readonly value=""
+                                            id="inputEmail4">
+                                    </div> -->
+                                <div class="col-12">
+                                    <label for="inputPassword4" class="form-label">Username</label>
+                                    <input type="text" class="form-control name" id="inputPassword4">
                                 </div>
+                                <div class="col-12">
+                                    <label for="inputCity" class="form-label">phone</label>
+                                    <input type="text" class="form-control phone" id="inputCity">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputState" class="form-label">gender</label>
+                                    <select id="inputState" class="form-select gender">
+                                        <option value="male">male</option>
+                                        <option value="female">female</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputZip" class="form-label">IC</label>
+                                    <input type="text" class="form-control ic" id="inputZip">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputZip" class="form-label">Address</label>
+                                    <input type="text" class="form-control addres" id="inputZip">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputZip" class="form-label">password</label>
+                                    <input type="text" class="form-control password" id="inputZip">
+                                </div>
+                                <button class="w-100 mt-3 btn  btn-success bg-gardient reg"
+                                    type="submit">Submit</button>
                             </div>
                         </div>
-                        <!-- Modal -->
+                    </div>
                 </div>
-            </form>
-        </div>
-    </main>
+                <!-- Modal -->
+            </div>
+        </form>
+    </div>
+</main>
 
 
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/jquery-3.6.0.min.js"></script>
+<script src="../assets/axios.min.js"></script>
+<script>
+    $(function () {
+        $(document).on('click', '.reg', function (e) {
+            e.preventDefault();
+            var addres = $('.addres').val()
+            var ic = $('.ic').val()
+            var name = $('.name').val()
+            var password = $('.password').val()
+            var phone = $('.phone').val()
+            if (addres == '') {
+                alert('error addres')
+                location.reload();
+            }
+            if (ic == '') {
+                alert('error ic')
+                location.reload();
+            }
+            if (name == '') {
+                alert('error name')
+                location.reload();
+            }
+            if (password == '') {
+                alert('error password')
+                location.reload();
+            }
+            if (phone == '') {
+                alert('error phone')
+                location.reload();
+            }
+            const data = {
+                'addres': addres,
+                'gender': gender,
+                'ic': ic,
+                'name': name,
+                'password': password,
+                'phone': phone,
+            }
 
 
+            var get = JSON.parse(localStorage.getItem("session"));
+            var token = get.data.access_token;
+
+
+            console.log(data)
+            axios
+                .post('http://localhost:8083/staff/users/update', data, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-type": "Application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                })
+                .then(function (response) {
+                    console.log(response);
+
+                })
+                .catch(function (error) {
+                    alert("error");
+                    console.log(error)
+                });
+        });
+    });
+</script>
 </body>
 
 </html>

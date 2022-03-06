@@ -41,8 +41,6 @@
         </div>
     </main>
 
-    <!-- Button trigger modal -->
-
     <!-- Modal -->
     <div class="modal fade" id="review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
@@ -69,8 +67,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="card-body detail">
-
                                 </div>
+                                <div class="from"></div>
+
                             </div>
                         </div>
                         <h1 class="mt-3 h4 px-3 text-muted">Ulasan</h1>
@@ -132,9 +131,6 @@
                         </div>
                     </div>
                 </main>
-
-
-
             </div>
         </div>
     </div>
@@ -235,11 +231,37 @@
                                 <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
                                             srcset=""></span> ${values.rate}
                                     <span class="text-muted">(120)</span>
-                                </h1>`
+                                </h1>
+                                
+                                `
                                 );
+
+                                if (values.status == 'COMPLETE') {
+                                       $('.from').append(`
+
+                                  <div class="col-12 car-body p-3">
+                                        <label for="inputEmail4" class="form-label">Riview</label>
+                                        <input type="hidden" class="form-control idrw" value="${values.id}">
+                                            <select id="inputState" class="form-select mb-3 rate">
+                                            <option value="5">5</option>
+                                            <option value="4">4</option>
+                                            <option value="3">3</option>
+                                            <option value="2">2</option>
+                                            <option value="1">1</option>
+                                        </select>
+                                        <input type="text" class="form-control setrw" value="">
+                                    </div>
+
+                                    <button class="w-100  btn m-3  btn-warning bg-gardient btn-rw" type="button">Riview</button>
+                                `
+                                    );
+                                }
+                              
+                             
                             } else {
                                 "<h3>Anda Belum Punya Transacition</h3>"
                             }
+                           
 
 
 
@@ -278,6 +300,37 @@
                         location.reload();
                     })
                     .catch(function (error) {
+                        console.log(error)
+                    });
+            });
+            // =============================================================================================================
+            // EVENT CREATE
+            // =============================================================================================================
+            $(document).on('click', '.btn-rw', function (e) {
+                e.preventDefault();
+                var get = JSON.parse(localStorage.getItem("session"));
+                var token = get.data.access_token;
+                var data = {
+                    "idTransaction": $('.idrw').val(),
+                    "rate": $('.rate').val(),
+                    "review": $('.setrw').val(),
+                };
+                console.log(data);
+                axios
+                    .post('http://localhost:8083/customer/transactions/save/rating', data, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-type": "Application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    })
+                    .then(function (response) {
+                        // console.log(response)
+                        alert('success')
+                        location.reload();
+                    })
+                    .catch(function (error) {
+                         alert('ERROR')
                         console.log(error)
                     });
             });
