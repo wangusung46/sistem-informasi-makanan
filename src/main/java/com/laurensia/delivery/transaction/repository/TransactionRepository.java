@@ -22,7 +22,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "LEFT JOIN Rating r ON t.id = r.idTransaction "
             + "WHERE u.email = (:email) "
             + "ORDER BY t.id DESC")
-    public List<TransactionDetailResponse> findByUserTransaction(@Param("email") String email);
+    public List<TransactionDetailResponse> findByUserTransactions(@Param("email") String email);
 
     @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
@@ -33,7 +33,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "LEFT JOIN Item i ON t.idItem = i.id "
             + "LEFT JOIN Rating r ON t.id = r.idTransaction "
             + "ORDER BY t.id DESC")
-    public List<TransactionDetailResponse> findByAdminTransaction();
+    public List<TransactionDetailResponse> findByAdminTransactions();
 
     @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, i.id AS idItem, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
@@ -45,7 +45,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "LEFT JOIN Rating r ON t.id = r.idTransaction "
             + "WHERE t.status = 'Complete' "
             + "ORDER BY t.id DESC")
-    public List<TransactionDetailResponse> findByUser();
+    public List<TransactionDetailResponse> findByUsers();
 
     @Query(value = "SELECT t.id AS id, "
             + "i.name AS nameItem, "
@@ -60,7 +60,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "WHERE t.status = 'Complete' "
             + "GROUP BY i.id "
             + "ORDER BY r.id DESC")
-    public List<TransactionDetailTotalResponse> findByUserTotalRating();
+    public List<TransactionDetailTotalResponse> findByUserTotalRatings();
 
     @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, u.email AS emailUser, i.id AS idItem, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
@@ -71,5 +71,17 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "LEFT JOIN Item i ON t.idItem = i.id "
             + "LEFT JOIN Rating r ON t.id = r.idTransaction "
             + "ORDER BY t.id DESC")
-    public List<TransactionDetailResponse> findByStaffTransaction(@Param("email") String email);
+    public List<TransactionDetailResponse> findByStaffTransactions(@Param("email") String email);
+    
+    @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, u.email AS emailUser, i.id AS idItem, i.name AS nameItem, "
+            + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
+            + "COALESCE(r.rate, '0') AS rate, "
+            + "COALESCE(r.review, 'Not Review') AS review "
+            + "FROM Transaction t "
+            + "LEFT JOIN User u ON t.idUser = u.id "
+            + "LEFT JOIN Item i ON t.idItem = i.id "
+            + "LEFT JOIN Rating r ON t.id = r.idTransaction "
+            + "WHERE u.email = (:email) AND t.id = (:transaction) "
+            + "ORDER BY t.id DESC")
+    public List<TransactionDetailResponse> findByUserTransaction(@Param("email") String email, @Param("transaction") Long idTransaction);
 }

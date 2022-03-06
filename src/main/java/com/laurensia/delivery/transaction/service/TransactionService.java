@@ -1,6 +1,7 @@
 package com.laurensia.delivery.transaction.service;
 
 import com.laurensia.delivery.baseresponse.BaseResponse;
+import com.laurensia.delivery.transaction.request.TransactionSaveRatingRequest;
 import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
@@ -24,5 +25,7 @@ public interface TransactionService {
     public BaseResponse<List<TransactionDetailResponse>> getTransactionByStaff(String request);
 
     public BaseResponse<TransactionSaveResponse> updateTransactionByStaff(Long request);
+
+    public BaseResponse<List<TransactionDetailResponse>> saveRatingTransaction(TransactionSaveRatingRequest request);
 
 }

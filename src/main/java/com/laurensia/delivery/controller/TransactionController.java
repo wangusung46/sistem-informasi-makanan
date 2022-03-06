@@ -3,6 +3,7 @@ package com.laurensia.delivery.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.laurensia.delivery.baseresponse.BaseResponse;
 import com.laurensia.delivery.transaction.request.TransactionIdRequest;
+import com.laurensia.delivery.transaction.request.TransactionSaveRatingRequest;
 import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
@@ -28,6 +29,13 @@ public class TransactionController {
     public ResponseEntity<BaseResponse<?>> doSaveTransaction(@RequestBody TransactionSaveRequest request) throws JsonProcessingException {
         BaseResponse<TransactionSaveResponse> response = new BaseResponse<>();
         response = transactionService.saveTransaction(request);
+        return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping(value = "/customer/transactions/save/rating", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doSaveTransactionRating(@RequestBody TransactionSaveRatingRequest request) throws JsonProcessingException {
+        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
+        response = transactionService.saveRatingTransaction(request);
         return ResponseEntity.ok(response);
     }
     

@@ -1,8 +1,11 @@
 package com.laurensia.delivery.transaction.service;
 
 import com.laurensia.delivery.baseresponse.BaseResponse;
+import com.laurensia.delivery.rating.model.Rating;
+import com.laurensia.delivery.rating.repository.RatingRepository;
 import com.laurensia.delivery.transaction.model.Transaction;
 import com.laurensia.delivery.transaction.repository.TransactionRepository;
+import com.laurensia.delivery.transaction.request.TransactionSaveRatingRequest;
 import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
@@ -22,8 +25,10 @@ import org.springframework.stereotype.Service;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
-    
+
     private final UserRepository userRepository;
+
+    private final RatingRepository ratingRepository;
 
     @Override
     public BaseResponse<TransactionSaveResponse> saveTransaction(TransactionSaveRequest request) {
@@ -51,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public BaseResponse<List<TransactionDetailResponse>> getTransactionByUser(String request) {
         BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
-        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUserTransaction(request);
+        List<TransactionDetailResponse> detailResponses = transactionRepository.findByUserTransactions(request);
         if (detailResponses != null) {
             response.setStatus(true);
             response.setPayload(detailResponses);
@@ -88,7 +93,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public BaseResponse<List<TransactionDetailTotalResponse>> getTransactionByUserTotalRating() {
         BaseResponse<List<TransactionDetailTotalResponse>> response = new BaseResponse<>();
-        List<TransactionDetailTotalResponse> detailResponses = transactionRepository.findByUserTotalRating();
+        List<TransactionDetailTotalResponse> detailResponses = transactionRepository.findByUserTotalRatings();
         if (detailResponses != null) {
             response.setStatus(true);
             response.setPayload(detailResponses);
@@ -101,7 +106,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public BaseResponse<List<TransactionDetailResponse>> getTransactionByStaff(String request) {
         BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
-        List<TransactionDetailResponse> detailResponses = transactionRepository.findByStaffTransaction(request);
+        List<TransactionDetailResponse> detailResponses = transactionRepository.findByStaffTransactions(request);
         if (detailResponses != null) {
             response.setStatus(true);
             response.setPayload(detailResponses);
@@ -115,12 +120,11 @@ public class TransactionServiceImpl implements TransactionService {
     public BaseResponse<TransactionSaveResponse> updateTransactionByStaff(Long request) {
         BaseResponse<TransactionSaveResponse> response = new BaseResponse<>();
         TransactionSaveResponse detailResponse = new TransactionSaveResponse();
-//        Transaction transaction = new Transaction();
         Optional<Transaction> optional = transactionRepository.findById(request);
         if (optional.isPresent()) {
-            if(optional.get().getStatus().equals("ORDER")){
+            if (optional.get().getStatus().equals("ORDER")) {
                 optional.get().setStatus("DELIVERY");
-            } else if(optional.get().getStatus().equals("DELIVERY")){
+            } else if (optional.get().getStatus().equals("DELIVERY")) {
                 optional.get().setStatus("COMPLETE");
             }
             optional.get().setId(request);
@@ -135,6 +139,39 @@ public class TransactionServiceImpl implements TransactionService {
             response.setPayload(detailResponse);
         } else {
             response.setStatus(false);
+        }
+
+        return response;
+    }
+
+    @Override
+    public BaseResponse<List<TransactionDetailResponse>> saveRatingTransaction(TransactionSaveRatingRequest request) {
+        BaseResponse<List<TransactionDetailResponse>> response = new BaseResponse<>();
+
+        Rating rating = new Rating();
+
+        Rating rating1 = ratingRepository.findByIdTransaction(request.getIdTransaction());
+
+        if (rating1 == null ) {
+            if (request.getIdTransaction() != null) {
+                if (request.getRate() == null) {
+                    rating.setRate(0);
+                } else {
+                    rating.setRate(request.getRate());
+                }
+                if (request.getReview() == null) {
+                    rating.setReview("Not Review");
+                } else {
+                    rating.setReview(request.getReview());
+                }
+                rating.setIdTransaction(request.getIdTransaction());
+                ratingRepository.save(rating);
+                List<TransactionDetailResponse> detailResponse = transactionRepository.findByUserTransaction(SecurityContextHolder.getContext().getAuthentication().getName(), request.getIdTransaction());
+                response.setPayload(detailResponse);
+                response.setStatus(true);
+            } else {
+                response.setStatus(false);
+            }
         }
 
         return response;
