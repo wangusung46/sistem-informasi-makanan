@@ -9,6 +9,7 @@ import com.laurensia.delivery.transaction.request.TransactionSaveRatingRequest;
 import com.laurensia.delivery.transaction.request.TransactionSaveRequest;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
+import com.laurensia.delivery.transaction.response.TransactionReviewResponse;
 import com.laurensia.delivery.transaction.response.TransactionSaveResponse;
 import com.laurensia.delivery.user.model.User;
 import com.laurensia.delivery.user.repository.UserRepository;
@@ -91,9 +92,9 @@ public class TransactionServiceImpl implements TransactionService {
 //        return response;
 //    }
     @Override
-    public BaseResponse<List<TransactionDetailTotalResponse>> getTransactionByUserTotalRating() {
+    public BaseResponse<List<TransactionDetailTotalResponse>> getTransactionByAdminTotalRating() {
         BaseResponse<List<TransactionDetailTotalResponse>> response = new BaseResponse<>();
-        List<TransactionDetailTotalResponse> detailResponses = transactionRepository.findByUserTotalRatings();
+        List<TransactionDetailTotalResponse> detailResponses = transactionRepository.findByAdminTotalRatings();
         if (detailResponses != null) {
             response.setStatus(true);
             response.setPayload(detailResponses);
@@ -174,6 +175,19 @@ public class TransactionServiceImpl implements TransactionService {
             }
         }
 
+        return response;
+    }
+
+    @Override
+    public BaseResponse<List<TransactionReviewResponse>> getTransactionByCustomerTotalRating() {
+        BaseResponse<List<TransactionReviewResponse>> response = new BaseResponse<>();
+        List<TransactionReviewResponse> detailResponses = transactionRepository.findByCustomerTotalRatings();
+        if (detailResponses != null) {
+            response.setStatus(true);
+            response.setPayload(detailResponses);
+        } else {
+            response.setStatus(false);
+        }
         return response;
     }
 

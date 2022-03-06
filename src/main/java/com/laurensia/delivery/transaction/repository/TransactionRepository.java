@@ -3,6 +3,7 @@ package com.laurensia.delivery.transaction.repository;
 import com.laurensia.delivery.transaction.model.Transaction;
 import com.laurensia.delivery.transaction.response.TransactionDetailResponse;
 import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
+import com.laurensia.delivery.transaction.response.TransactionReviewResponse;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -60,7 +61,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "WHERE t.status = 'Complete' "
             + "GROUP BY i.id "
             + "ORDER BY r.id DESC")
-    public List<TransactionDetailTotalResponse> findByUserTotalRatings();
+    public List<TransactionDetailTotalResponse> findByAdminTotalRatings();
 
     @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, u.email AS emailUser, i.id AS idItem, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
@@ -72,7 +73,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "LEFT JOIN Rating r ON t.id = r.idTransaction "
             + "ORDER BY t.id DESC")
     public List<TransactionDetailResponse> findByStaffTransactions(@Param("email") String email);
-    
+
     @Query(value = "SELECT t.id AS id, u.id AS idUser, u.name AS nameUser, u.email AS emailUser, i.id AS idItem, i.name AS nameItem, "
             + "t.countItem AS countItem, t.status AS status, t.countItem * i.price AS total, "
             + "COALESCE(r.rate, '0') AS rate, "
@@ -84,4 +85,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             + "WHERE u.email = (:email) AND t.id = (:transaction) "
             + "ORDER BY t.id DESC")
     public List<TransactionDetailResponse> findByUserTransaction(@Param("email") String email, @Param("transaction") Long idTransaction);
+
+    @Query(value = "SELECT i.id AS idProduct, i.name AS nameProduct, COALESCE(u.name, 'Empty') AS nameUser, COALESCE(r.rate, 0) AS rate, COALESCE(r.review, 'Not Review') AS review "
+            + "FROM Item i "
+            + "LEFT JOIN Transaction t ON i.id = t.idItem "
+            + "LEFT JOIN User u ON t.idUser = u.id "
+            + "LEFT JOIN Rating r ON t.id = r.idTransaction")
+    public List<TransactionReviewResponse> findByCustomerTotalRatings();
 }

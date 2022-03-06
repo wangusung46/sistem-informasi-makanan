@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.laurensia.delivery.transaction.response.TransactionDetailTotalResponse;
+import com.laurensia.delivery.transaction.response.TransactionReviewResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -56,7 +57,14 @@ public class TransactionController {
     @GetMapping(value = "/admin/transactions/total-rating", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse<?>> doAdminGetTransactionTotalRating() throws JsonProcessingException {
         BaseResponse<List<TransactionDetailTotalResponse>> responses = new BaseResponse<>();
-        responses = transactionService.getTransactionByUserTotalRating();
+        responses = transactionService.getTransactionByAdminTotalRating();
+        return ResponseEntity.ok(responses);
+    }
+    
+    @GetMapping(value = "/customer/transactions/total-rating", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doCustomerGetTransactionTotalRating() throws JsonProcessingException {
+        BaseResponse<List<TransactionReviewResponse>> responses = new BaseResponse<>();
+        responses = transactionService.getTransactionByCustomerTotalRating();
         return ResponseEntity.ok(responses);
     }
     
