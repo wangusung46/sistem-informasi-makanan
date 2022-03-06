@@ -7,6 +7,7 @@ import com.laurensia.delivery.user.repository.UserRepository;
 import com.laurensia.delivery.user.request.UserIdRequest;
 import com.laurensia.delivery.user.request.UserRegistrationRequest;
 import com.laurensia.delivery.user.request.UserSaveRequest;
+import com.laurensia.delivery.user.request.UserUpdateRequest;
 import com.laurensia.delivery.user.response.UserDetailResponse;
 import com.laurensia.delivery.user.response.UserSaveResponse;
 import java.util.ArrayList;
@@ -216,6 +217,45 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             response.setStatus(false);
         }
 
+        return response;
+    }
+
+    @Override
+    public BaseResponse<UserDetailResponse> updateUser(UserUpdateRequest request) {
+        BaseResponse<UserDetailResponse> response = new BaseResponse<>();
+        UserDetailResponse detailResponse = new UserDetailResponse();
+        User optional = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (optional != null) {
+            if (optional.getActive()) {
+                User user = new User();
+                user.setActive(Boolean.TRUE);
+                user.setAddress(request.getAddress());
+                user.setEmail(optional.getEmail());
+                user.setGender(request.getGender());
+                user.setIc(request.getIc());
+                user.setId(optional.getId());
+                user.setName(request.getName());
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+                user.setPhone(request.getPhone());
+                user.setRoles(optional.getRoles());
+                userRepository.save(user);
+
+                detailResponse.setActive(optional.getActive());
+                detailResponse.setAddress(optional.getAddress());
+                detailResponse.setEmail(optional.getEmail());
+                detailResponse.setGender(optional.getGender());
+                detailResponse.setIc(optional.getIc());
+                detailResponse.setId(optional.getId());
+                detailResponse.setName(optional.getName());
+                detailResponse.setPhone(optional.getPhone());
+
+            }
+            response.setStatus(true);
+            response.setPayload(detailResponse);
+        } else {
+            response.setStatus(false);
+        }
         return response;
     }
 

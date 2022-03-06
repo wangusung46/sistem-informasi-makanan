@@ -5,6 +5,7 @@ import com.laurensia.delivery.baseresponse.BaseResponse;
 import com.laurensia.delivery.user.request.UserIdRequest;
 import com.laurensia.delivery.user.request.UserRegistrationRequest;
 import com.laurensia.delivery.user.request.UserSaveRequest;
+import com.laurensia.delivery.user.request.UserUpdateRequest;
 import com.laurensia.delivery.user.response.UserDetailResponse;
 import com.laurensia.delivery.user.response.UserSaveResponse;
 import java.util.List;
@@ -26,5 +27,7 @@ public interface UserService {
     public String getName(String email);
 
     public BaseResponse<UserSaveResponse> saveUser(UserRegistrationRequest request);
+
+    public BaseResponse<UserDetailResponse> updateUser(UserUpdateRequest request);
 
 }

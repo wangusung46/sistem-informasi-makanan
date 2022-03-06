@@ -5,6 +5,7 @@ import com.laurensia.delivery.baseresponse.BaseResponse;
 import com.laurensia.delivery.user.request.UserIdRequest;
 import com.laurensia.delivery.user.request.UserRegistrationRequest;
 import com.laurensia.delivery.user.request.UserSaveRequest;
+import com.laurensia.delivery.user.request.UserUpdateRequest;
 import com.laurensia.delivery.user.response.UserDetailResponse;
 import com.laurensia.delivery.user.response.UserSaveResponse;
 import com.laurensia.delivery.user.service.UserService;
@@ -43,6 +44,27 @@ public class UserController {
         BaseResponse<List<UserDetailResponse>> responses = new BaseResponse<>();
         responses = userService.getUsers();
         return ResponseEntity.ok(responses);
+    }
+    
+    @PostMapping(value = "/admin/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doAdminUpdateUser(@RequestBody UserUpdateRequest request) throws JsonProcessingException {
+        BaseResponse<UserDetailResponse> response = new BaseResponse<>();
+        response = userService.updateUser(request);
+        return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping(value = "/staff/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doStaffUpdateUser(@RequestBody UserUpdateRequest request) throws JsonProcessingException {
+        BaseResponse<UserDetailResponse> response = new BaseResponse<>();
+        response = userService.updateUser(request);
+        return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping(value = "/customer/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse<?>> doCustomerUpdateUser(@RequestBody UserUpdateRequest request) throws JsonProcessingException {
+        BaseResponse<UserDetailResponse> response = new BaseResponse<>();
+        response = userService.updateUser(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/admin/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
