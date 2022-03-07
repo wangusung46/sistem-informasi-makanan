@@ -213,7 +213,6 @@
                 e.preventDefault();
                 var get = JSON.parse(localStorage.getItem("session"));
                 var token = get.data.access_token;
-                const a = [];
                 const data = {
                     'name': $('.name').val(),
                     'gender': $('.gender').val(),
@@ -222,7 +221,7 @@
                     'email': $('.email').val(),
                     'address': $('.address').val(),
                     'password': $('.password').val(),
-                    'gender': $('.gender').val(),
+                    'role': $('.role').val(),
                 }
                 console.log(data)
                 axios
@@ -239,6 +238,7 @@
                         $('#create').find('input').val('');
                     })
                     .catch(function (error) {
+                        alert('ERORR')
                         console.log(error)
                     });
             });

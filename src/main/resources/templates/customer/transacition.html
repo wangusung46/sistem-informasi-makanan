@@ -125,7 +125,7 @@
                         </div>
                         <small class="fw-bold h6 text-nowrap">
                             <span>
-                               <p> ON ${values.status}</p>
+                               <p>${values.status}</p>
                                <button class="btn btn-sm btn-warning bg-gardient px-4 review" value="${values.id}">Review</button>
                                 </span>
                         </small>
@@ -172,7 +172,7 @@
                             if (values.id == id) {
                                 //    console.log(c);
                                 $('.detail').append(`
-                                <h1 class="card-title">OMPUS</h1>
+                                <h1 class="card-title">${values.nameItem}</h1>
             
                                 <h1 class="h6 fw-bold mt-3">Rating</h1>
                                 <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
@@ -188,7 +188,7 @@
                                     $('.from').append(`
 
                                   <div class="col-12 car-body p-3">
-                                        <label for="inputEmail4" class="form-label">Riview</label>
+                                        <label for="inputEmail4" class="form-label">Review</label>
                                         <input type="hidden" class="form-control idrw" value="${values.id}">
                                             <select id="inputState" class="form-select mb-3 rate">
                                             <option value="5">5</option>
@@ -200,7 +200,7 @@
                                         <input type="text" class="form-control setrw" value="">
                                     </div>
 
-                                    <button class="w-100  btn m-3  btn-warning bg-gardient btn-rw" type="button">Riview</button>
+                                    <button class="w-100  btn m-3  btn-warning bg-gardient btn-rw" type="button">Review</button>
                                 `);
 
                                 }
@@ -248,7 +248,7 @@
                                     class="rounded-circle flex-shrink-0">
                                 <div class="d-flex gap-2 w-100 justify-content-between">
                                     <div>
-                                        <h6 class="mb-0">${values.idProduct}</h6>
+                                        <h6 class="mb-0">${values.nameProduct}</h6>
                                         <p class="mb-0 opacity-75">${values.review}</p>
                                     </div>
                                     <small class="opacity-50 text-nowrap bintang">
