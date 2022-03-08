@@ -33,53 +33,7 @@
   </header>
   <main>
 
-    <!-- banner -->
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-          aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item  w-100 active">
-          <div class="bg-secondary" style="height: 210px;"></div>
-          <div class="container">
-            <div class="carousel-caption ">
-              <h1>Discover places near you</h1>
-              <p>Some representative placeholder content for the first slide of the carousel.</p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item  h-100">
-          <div class="bg-secondary" style=" height: 210px;"></div>
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Order your favorite</h1>
-              <p>Some representative placeholder content for the second slide of the carousel.</p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item  h-100">
-          <div class="bg-secondary" style="height: 210px;"></div>
-          <div class="container">
-            <div class="carousel-caption ">
-              <h1>Fastest Delivery</h1>
-              <p>Some representative placeholder content for the third slide of this carousel.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <!-- end banner -->
+    
 
     <div class="container p-4">
       <div class="row product">
@@ -136,11 +90,12 @@
                         <img src="../assets/d6.jpg" class="card-img-top" alt="" height="250px">
                         <div class="card-body">
                           <h1 class="h5 fw-bold card-title mb-0 ">${values.name}</h1>
+                          <h1 class="h6 fw-bold card-title mb-0 "> Price ${values.price}</h1>
                           
                           <div class="d-flex justify-content-between">
                             <div>
                               <h1 class="h6 fw-bold"><span><img src="../assets/star.svg" style="width: 20px;" alt=""
-                                    srcset=""></span> 4.9 <span class="text-muted">(120)</span></h1>
+                                    srcset=""></span> 4.9 <span class="text-muted"></span></h1>
                             </div>
                             <button class="btn btn-sm btn-dark bg-gardient px-4 order" value="${values.id}">Order</button>
                           </div>
